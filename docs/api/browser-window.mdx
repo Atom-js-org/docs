@@ -1,0 +1,133 @@
+---
+title: BrowserWindow
+description: Create and control native AtomJS windows with Electron-style options.
+---
+
+```js
+const { BrowserWindow } = require('electron');
+```
+
+## Constructor
+
+```js
+const window = new BrowserWindow({
+  width: 1100,
+  height: 760,
+  x: 80,
+  y: 80,
+  minWidth: 720,
+  minHeight: 520,
+  maxWidth: 1920,
+  maxHeight: 1080,
+  title: 'My App',
+  show: true,
+  center: true,
+  frame: true,
+  resizable: true,
+  closable: true,
+  minimizable: true,
+  maximizable: true,
+  fullscreenable: true,
+  alwaysOnTop: false,
+  focusable: true,
+  skipTaskbar: false,
+  transparent: false,
+  opacity: 1,
+  backgroundColor: '#10131a',
+  titleBarStyle: 'hiddenInset',
+  trafficLightPosition: { x: 18, y: 16 },
+  webPreferences: {
+    preload: path.join(__dirname, 'preload.cjs'),
+    contextIsolation: true,
+    nodeIntegration: false,
+    devTools: true
+  }
+});
+```
+
+## Loading
+
+```js
+await window.loadFile('src/index.html');
+await window.loadURL('https://example.com');
+window.reload();
+```
+
+## Visibility and focus
+
+```js
+window.show();
+window.hide();
+window.isVisible();
+window.focus();
+window.blur();
+```
+
+## Lifecycle
+
+```js
+window.close();
+window.destroy();
+window.isDestroyed();
+```
+
+## State
+
+```js
+window.maximize();
+window.unmaximize();
+window.isMaximized();
+
+window.minimize();
+window.restore();
+window.isMinimized();
+
+window.setFullScreen(true);
+window.isFullScreen();
+```
+
+## Bounds and appearance
+
+```js
+window.setSize(1200, 800);
+window.getSize();
+
+window.setBounds({ x: 100, y: 100, width: 1200, height: 800 });
+window.getBounds();
+
+window.setAlwaysOnTop(true);
+window.isAlwaysOnTop();
+
+window.setOpacity(0.95);
+window.getOpacity();
+
+window.setResizable(false);
+window.isResizable();
+```
+
+## Parent and modal windows
+
+```js
+const loginWindow = new BrowserWindow({
+  parent: window,
+  modal: true,
+  width: 520,
+  height: 720
+});
+
+loginWindow.getParentWindow();
+window.getChildWindows();
+loginWindow.isModal();
+```
+
+Owned windows remain associated with their parent. AtomJS brings new authentication windows to the foreground on Windows and uses native sheets for modal windows on macOS.
+
+## Static methods
+
+```js
+BrowserWindow.getAllWindows();
+BrowserWindow.fromId(id);
+BrowserWindow.getFocusedWindow();
+```
+
+Creation-time options are the most reliable cross-platform customization surface in the current alpha. Some mutations after creation depend on the native host implementation for the platform.

@@ -1,0 +1,41 @@
+---
+title: Architecture
+description: Understand the main process, native host, renderer, preload bridge, and IPC transport.
+---
+
+AtomJS separates privileged application logic from web-rendered interface code.
+
+## Main process
+
+The main process is regular Node.js. It owns:
+
+- application lifecycle
+- windows
+- filesystem and network access
+- child processes
+- npm dependencies
+- IPC handlers
+
+## Native window host
+
+AtomJS creates real operating-system windows and embeds the system WebView.
+
+- macOS: one shared Cocoa and WKWebView host
+- Windows: native window plus Microsoft WebView2
+- Linux: native window plus WebKitGTK
+
+The application does not ship a private Chromium runtime.
+
+## Renderer
+
+The renderer is standard browser HTML, CSS, and JavaScript. It should not receive unrestricted Node.js access.
+
+## Preload
+
+A preload script runs before page code and can expose a controlled API through `contextBridge`.
+
+## IPC
+
+Renderer requests are sent to `ipcMain` handlers in the Node.js process. Main-process events can be sent back through `webContents.send()`.
+
+This model matches the familiar Electron main/preload/renderer architecture while using a different rendering runtime.

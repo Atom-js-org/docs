@@ -1,0 +1,49 @@
+---
+title: Linux Configuration
+description: Create a standalone binary, portable archive, AppDir, AppImage, DEB, and RPM.
+---
+
+```json
+{
+  "build": {
+    "linux": {
+      "icon": "assets/icon.png",
+      "binaryName": "my-app",
+      "packageName": "my-app",
+      "category": "Utility",
+      "maintainer": "Example Company <support@example.com>",
+      "description": "A lightweight AtomJS desktop application.",
+      "dependencies": [
+        "libgtk-3-0",
+        "libwebkit2gtk-4.1-0"
+      ],
+      "rpmDependencies": [
+        "gtk3",
+        "webkit2gtk4.1"
+      ],
+      "appImage": true,
+      "deb": true,
+      "rpm": true
+    }
+  }
+}
+```
+
+## Output formats
+
+A Linux build can produce:
+
+- standalone application binary
+- portable `.tar.gz`
+- `.AppDir`
+- `.AppImage`
+- Debian `.deb`
+- RPM `.rpm`
+
+## Tool availability
+
+- AppImage output requires `appimagetool`.
+- RPM output requires `rpmbuild`.
+- AtomJS can assemble the Debian archive directly.
+
+Package on a matching Linux environment and test each artifact on the target distribution family.

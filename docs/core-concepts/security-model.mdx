@@ -1,0 +1,35 @@
+---
+title: Security Model
+description: Keep privileged Node.js capabilities outside untrusted renderer content.
+---
+
+Use the same security boundary expected in a modern Electron application.
+
+## Recommended window configuration
+
+```js
+const window = new BrowserWindow({
+  webPreferences: {
+    preload: path.join(__dirname, 'preload.cjs'),
+    contextIsolation: true,
+    nodeIntegration: false,
+    devTools: process.env.NODE_ENV !== 'production'
+  }
+});
+```
+
+## Expose a narrow bridge
+
+```js
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('files', {
+  readText: (filePath) => ipcRenderer.invoke('files:read-text', filePath)
+});
+```
+
+Validate every renderer-supplied argument in the main process.
+
+Do not expose `require`, `process`, arbitrary command execution, unrestricted filesystem access, or generic IPC send functions to remote content.
+
+For OAuth or other remote pages, use a dedicated child window without a preload bridge unless the page specifically requires one.

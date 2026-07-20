@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Atom-js-org/atom/main/atom.config.schema.json",
+  "appId": "com.example.myapp",
+  "productName": "My Atom App",
+  "main": "src/main.cjs",
+  "icon": "assets/icon.png",
+  "files": [
+    "src/**",
+    "assets/**",
+    "package.json"
+  ],
+  "installerCredit": true,
+  "build": {
+    "artifactName": "${productName}-${version}-${target}-${arch}",
+    "windows": {
+      "icon": "assets/icon.ico",
+      "installerIcon": "assets/icon.ico",
+      "headerImage": null,
+      "sidebarImage": null,
+      "language": "English",
+      "installMode": "user",
+      "installDirectory": null,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowDirectorySelection": true,
+      "runAfterFinish": true,
+      "welcomeText": null,
+      "finishText": null,
+      "publisher": "Example Company",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "macos": {
+      "icon": "assets/icon.png",
+      "bundleName": "My Atom App",
+      "category": "public.app-category.utilities",
+      "minimumSystemVersion": "12.0",
+      "copyright": "Copyright \u00a9 Example Company",
+      "signingIdentity": "-",
+      "entitlements": null,
+      "hardenedRuntime": false,
+      "dmg": {
+        "enabled": true,
+        "artifactName": null,
+        "volumeName": "My Atom App",
+        "background": null
+      }
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "binaryName": "my-atom-app",
+      "packageName": "my-atom-app",
+      "category": "Utility",
+      "maintainer": "Example Company <support@example.com>",
+      "description": "A lightweight Electron-compatible desktop application powered by AtomJS.",
+      "dependencies": [
+        "libgtk-3-0",
+        "libwebkit2gtk-4.1-0"
+      ],
+      "appImage": true,
+      "deb": true,
+      "rpmDependencies": [
+        "gtk3",
+        "webkit2gtk4.1"
+      ],
+      "rpm": true
+    }
+  },
+  "github": {
+    "workflow": "atom-build.yml"
+  }
+}

@@ -1,0 +1,65 @@
+---
+title: CLI
+description: Use the AtomJS command line for development, diagnostics, project creation, and builds.
+---
+
+The CLI package is published as `@atom-js-org/cli` and exposes the `atom` executable.
+
+## Run a project
+
+```bash
+atom run dev
+atom run build
+```
+
+`dev` runs the configured main entry with development diagnostics enabled. `build` runs the packaged application output for the host platform.
+
+Use a different project directory:
+
+```bash
+atom run dev --project ../desktop-app
+```
+
+## Build
+
+```bash
+atom build windows
+atom build macos
+atom build linux
+atom build all
+```
+
+Options:
+
+```text
+-p, --project <path>   Project directory
+--local                Never use the remote build workflow
+--remote               Always use the remote build workflow
+--skip-install         Reuse staged production dependencies when possible
+```
+
+A local target must match the current operating system. Cross-platform targets and `all` use the repository workflow when remote building is selected.
+
+## Doctor
+
+```bash
+atom doctor
+```
+
+Doctor checks Node.js, npm, and the platform-native WebView prerequisites.
+
+## Initialize
+
+```bash
+atom init my-app --name my-app
+```
+
+This creates a basic AtomJS project with an Electron-compatible dependency alias.
+
+## Debug errors
+
+Set `ATOM_DEBUG=1` to print command stack traces:
+
+```bash
+ATOM_DEBUG=1 atom build macos
+```

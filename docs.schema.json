@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Atom-js-org/atom/blob/main/docs.schema.json",
+  "title": "AtomJS documentation navigation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "site",
+    "navigation"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description",
+        "home"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "home": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri"
+        },
+        "npm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "runtime": {
+              "type": "string",
+              "minLength": 1
+            },
+            "electron": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cli": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "pages"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "pages": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/page"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "slug",
+        "file",
+        "description"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[/-][a-z0-9]+)*$"
+        },
+        "file": {
+          "type": "string",
+          "pattern": "\\.mdx$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "updated": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

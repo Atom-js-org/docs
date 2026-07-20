@@ -1,0 +1,41 @@
+---
+title: macOS Configuration
+description: Customize the application bundle, signing, ZIP, and DMG output.
+---
+
+```json
+{
+  "build": {
+    "macos": {
+      "icon": "assets/icon.png",
+      "bundleName": "My App",
+      "category": "public.app-category.productivity",
+      "minimumSystemVersion": "12.0",
+      "copyright": "Copyright © Example Company",
+      "signingIdentity": "-",
+      "entitlements": null,
+      "hardenedRuntime": false,
+      "dmg": {
+        "enabled": true,
+        "artifactName": "My-App-${version}.dmg",
+        "volumeName": "My App",
+        "background": null
+      }
+    }
+  }
+}
+```
+
+## Application icon
+
+AtomJS accepts PNG or ICNS input. A suitable PNG can be converted into an ICNS bundle during the macOS build.
+
+## Signing
+
+`signingIdentity: "-"` performs ad-hoc signing. Distribution outside local development normally requires an Apple signing identity, hardened runtime settings, entitlements, and notarization appropriate to the application.
+
+## External volumes
+
+AtomJS stages and signs the application on local temporary storage before copying the sealed bundle to the project output. Metadata such as AppleDouble `._*` files is removed before verification.
+
+ZIP creation excludes resource-fork sidecars. DMG creation is also staged locally to avoid filesystem restrictions on external or non-APFS project drives.

@@ -1,0 +1,54 @@
+---
+title: Configuration Overview
+description: Configure identity, source files, artifacts, installers, bundles, and Linux packages.
+---
+
+AtomJS reads `atom.config.json` from the project root.
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/Atom-js-org/atom/main/atom.config.schema.json",
+  "appId": "com.example.myapp",
+  "productName": "My App",
+  "main": "src/main.cjs",
+  "icon": "assets/icon.png",
+  "files": [
+    "src/**",
+    "assets/**",
+    "package.json"
+  ],
+  "installerCredit": true,
+  "build": {
+    "artifactName": "${productName}-${version}-${target}-${arch}"
+  },
+  "github": {
+    "workflow": "atom-build.yml"
+  }
+}
+```
+
+## Top-level fields
+
+| Field | Purpose |
+|---|---|
+| `appId` | Native application or bundle identifier |
+| `productName` | Human-readable application name |
+| `main` | Node.js main-process entry |
+| `icon` | Default application icon |
+| `files` | Source inclusion patterns |
+| `installerCredit` | Include the configured AtomJS installer credit behavior |
+| `build` | Platform packaging settings |
+| `github.workflow` | Remote build workflow filename |
+
+## Artifact template
+
+`build.artifactName` supports:
+
+```text
+${productName}
+${version}
+${target}
+${arch}
+```
+
+Platform-specific artifact settings may override the shared name.

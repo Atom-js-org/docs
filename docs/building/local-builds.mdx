@@ -1,0 +1,41 @@
+---
+title: Local Builds
+description: Build and test native artifacts on the matching host operating system.
+---
+
+Build the current operating system locally:
+
+```bash
+atom build macos
+atom build windows
+atom build linux
+```
+
+A local target must match the host.
+
+## Output directories
+
+```text
+build/
+├── macos/
+├── windows/
+└── linux/
+```
+
+## Development and packaged runs
+
+```bash
+atom run dev
+atom run build
+```
+
+Use `dev` while editing application code. Use `build` to launch the packaged output and validate production paths.
+
+## Before releasing
+
+1. Run `atom doctor`.
+2. Run project tests.
+3. Remove the previous `build` directory.
+4. Build on the target operating system.
+5. Verify signatures and package metadata.
+6. Install or extract the artifact on a clean test machine.

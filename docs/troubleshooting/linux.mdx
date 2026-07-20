@@ -1,0 +1,35 @@
+---
+title: Linux Troubleshooting
+description: Diagnose WebKitGTK and package-tool availability across distributions.
+---
+
+## Doctor reports missing native dependencies
+
+Install GTK and WebKitGTK packages for the distribution, then run:
+
+```bash
+npx atom doctor
+```
+
+Package names differ between Debian-based and RPM-based systems.
+
+## AppImage is not produced
+
+Install `appimagetool` and make it available on `PATH`.
+
+## RPM is not produced
+
+Install the distribution package that provides `rpmbuild`.
+
+## Application starts on one distribution but not another
+
+Check:
+
+- WebKitGTK package generation and ABI
+- declared DEB or RPM dependencies
+- executable permissions
+- desktop entry paths
+- icon installation path
+- glibc and system library compatibility
+
+Build and test inside the oldest supported distribution environment when broad portability is required.

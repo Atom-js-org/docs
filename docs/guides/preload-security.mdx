@@ -1,0 +1,39 @@
+---
+title: Preload and Renderer Security
+description: Expose only the desktop capabilities required by the web interface.
+---
+
+Keep `nodeIntegration` disabled and use an isolated preload bridge.
+
+```js
+const window = new BrowserWindow({
+  webPreferences: {
+    preload: path.join(__dirname, 'preload.cjs'),
+    contextIsolation: true,
+    nodeIntegration: false
+  }
+});
+```
+
+Expose individual operations:
+
+```js
+contextBridge.exposeInMainWorld('settings', {
+  load: () => ipcRenderer.invoke('settings:load'),
+  save: (value) => ipcRenderer.invoke('settings:save', value)
+});
+```
+
+Validate in the main process:
+
+```js
+ipcMain.handle('settings:save', async (_event, value) => {
+  if (!value || typeof value !== 'object') {
+    throw new TypeError('Settings must be an object');
+  }
+
+  return saveSettings(value);
+});
+```
+
+Avoid generic APIs such as `invoke(channel, ...args)` in the object exposed to page code.

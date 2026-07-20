@@ -1,0 +1,63 @@
+---
+title: Electron Compatibility
+description: Use Electron-style imports and APIs while running on AtomJS system WebViews.
+---
+
+AtomJS publishes an Electron compatibility facade as `@atom-js-org/electron`.
+
+Install it under the standard `electron` module name:
+
+```bash
+npm install electron@npm:@atom-js-org/electron@alpha
+```
+
+Application code and compatible dependencies can then use familiar imports:
+
+```js
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  dialog,
+  shell,
+  clipboard
+} = require('electron');
+```
+
+ES modules and Electron subpaths are supported:
+
+```js
+import { app, BrowserWindow } from 'electron';
+import { ipcRenderer } from 'electron/renderer';
+```
+
+## Supported compatibility model
+
+AtomJS implements the Electron application structure:
+
+- Node.js main process
+- native `BrowserWindow` instances
+- preload scripts
+- isolated renderer context
+- `contextBridge`
+- `ipcMain` and `ipcRenderer`
+- `webContents`
+- dialogs, shell, clipboard, and menu data
+- Electron runtime markers such as `process.versions.electron`
+- CommonJS, ESM, `electron/main`, `electron/renderer`, and `electron/common`
+
+## Compatibility levels
+
+### Functional
+
+Core APIs have working AtomJS implementations. This includes app lifecycle and paths, window creation and navigation, preload IPC, dialogs, shell operations, clipboard text, and common window state operations.
+
+### Compatibility surface
+
+Frequently imported Electron modules are exported so Electron-oriented packages can load without maintaining an AtomJS-specific build.
+
+### Explicit boundary
+
+AtomJS uses WKWebView, WebView2, and WebKitGTK instead of bundling Chromium. Chromium-only behavior, Chrome extensions, Electron native ABI modules, and APIs that require Electron's private Chromium runtime are not automatically equivalent.
+
+AtomJS does not silently claim unsupported native behavior. Use the API pages and release notes to verify the methods required by your application.

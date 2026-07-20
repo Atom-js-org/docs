@@ -1,0 +1,36 @@
+---
+title: Code Signing
+description: Sign and verify release artifacts on Windows and macOS.
+---
+
+Code signing proves the publisher identity and protects release integrity.
+
+## macOS
+
+Configure a signing identity and entitlements in `atom.config.json`.
+
+After building, verify the application:
+
+```bash
+/usr/bin/codesign \
+  --verify \
+  --deep \
+  --strict \
+  --verbose=2 \
+  "build/macos/My App.app"
+```
+
+Ad-hoc signing is suitable for local testing but is not a replacement for Developer ID signing and notarization.
+
+## Windows
+
+Set publisher metadata and sign the final executable and installer with the certificate and signing service used by the organization.
+
+Test SmartScreen and installation behavior on a clean Windows machine.
+
+## Release practice
+
+- sign after application content is complete
+- verify the final copied artifact
+- protect signing credentials in the operating-system keychain or CI secret store
+- test the installer, portable build, and uninstall process separately

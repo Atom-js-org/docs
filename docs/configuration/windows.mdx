@@ -1,0 +1,62 @@
+---
+title: Windows Configuration
+description: Customize executable metadata and the NSIS installer.
+---
+
+```json
+{
+  "build": {
+    "windows": {
+      "icon": "assets/icon.ico",
+      "installerIcon": "assets/icon.ico",
+      "headerImage": "assets/installer-header.bmp",
+      "sidebarImage": "assets/installer-sidebar.bmp",
+      "language": "English",
+      "installMode": "user",
+      "installDirectory": null,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowDirectorySelection": true,
+      "runAfterFinish": true,
+      "welcomeText": "Welcome to My App Setup",
+      "finishText": "My App is ready.",
+      "publisher": "Example Company",
+      "requestedExecutionLevel": "asInvoker"
+    }
+  }
+}
+```
+
+## Icons and images
+
+- Use `.ico` for the executable and installer icon.
+- NSIS header and sidebar images should use dimensions expected by the selected NSIS pages.
+- Keep source assets inside the project so remote builds can access them.
+
+## Installation scope
+
+`installMode` accepts:
+
+- `user`
+- `machine`
+
+Machine-wide installation can require administrator privileges.
+
+## Execution level
+
+`requestedExecutionLevel` accepts:
+
+- `asInvoker`
+- `highestAvailable`
+- `requireAdministrator`
+
+Use the least privilege required by the application.
+
+## Output
+
+Windows builds can include:
+
+- GUI executable without a console window
+- portable directory
+- ZIP archive
+- NSIS installer and uninstaller when NSIS is available

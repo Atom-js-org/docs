@@ -1,0 +1,141 @@
+---
+title: Getting Started
+description: Create and run a lightweight desktop application with AtomJS.
+---
+
+AtomJS lets you build desktop applications with JavaScript, HTML, and CSS while rendering through the operating system WebView.
+
+It keeps the familiar Electron main-process, preload, renderer, `BrowserWindow`, and IPC model. Applications can import the compatibility package with the normal Electron module name.
+
+## Requirements
+
+- Node.js 20.12 or newer
+- npm
+- macOS: Xcode Command Line Tools
+- Windows: Microsoft WebView2 Runtime
+- Linux: GTK and WebKitGTK development/runtime packages required by the host distribution
+
+Run the platform checker at any time:
+
+```bash
+npx atom doctor
+```
+
+## Create a project
+
+```bash
+mkdir my-atom-app
+cd my-atom-app
+npm init -y
+
+npm install electron@npm:@atom-js-org/electron@alpha
+npm install --save-dev @atom-js-org/cli@alpha
+```
+
+Create `atom.config.json`:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/Atom-js-org/atom/main/atom.config.schema.json",
+  "appId": "com.example.myapp",
+  "productName": "My Atom App",
+  "main": "src/main.cjs",
+  "icon": "assets/icon.png"
+}
+```
+
+Add scripts to `package.json`:
+
+```json
+{
+  "scripts": {
+    "dev": "atom run dev",
+    "doctor": "atom doctor",
+    "build:windows": "atom build windows",
+    "build:macos": "atom build macos",
+    "build:linux": "atom build linux"
+  }
+}
+```
+
+## Main process
+
+Create `src/main.cjs`:
+
+```js
+'use strict';
+
+const path = require('node:path');
+const { app, BrowserWindow, ipcMain } = require('electron');
+
+let mainWindow;
+
+app.whenReady().then(() => {
+  mainWindow = new BrowserWindow({
+    width: 1100,
+    height: 720,
+    minWidth: 760,
+    minHeight: 520,
+    title: 'My Atom App',
+    backgroundColor: '#0b0f17',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.cjs'),
+      contextIsolation: true,
+      nodeIntegration: false
+    }
+  });
+
+  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+});
+
+ipcMain.handle('app:version', () => app.getVersion());
+
+app.on('window-all-closed', () => app.quit());
+```
+
+## Preload bridge
+
+Create `src/preload.cjs`:
+
+```js
+'use strict';
+
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('desktop', {
+  getVersion: () => ipcRenderer.invoke('app:version')
+});
+```
+
+## Renderer
+
+Create `src/index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Atom App</title>
+</head>
+<body>
+  <h1>AtomJS is running</h1>
+  <p id="version"></p>
+  <script>
+    window.desktop.getVersion().then((version) => {
+      document.getElementById('version').textContent = `Version ${version}`;
+    });
+  </script>
+</body>
+</html>
+```
+
+## Run
+
+```bash
+npm run doctor
+npm run dev
+```
+
+The first macOS development run may compile the small shared Cocoa/WKWebView host with the system SDK.

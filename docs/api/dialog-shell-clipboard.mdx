@@ -1,0 +1,57 @@
+---
+title: Dialogs, shell, and clipboard
+description: Use common desktop integrations through Electron-compatible APIs.
+---
+
+## Open dialog
+
+```js
+const { dialog } = require('electron');
+
+const result = await dialog.showOpenDialog(mainWindow, {
+  title: 'Choose a file',
+  properties: ['openFile', 'multiSelections'],
+  filters: [
+    { name: 'Text files', extensions: ['txt', 'md'] }
+  ]
+});
+```
+
+## Save dialog
+
+```js
+const result = await dialog.showSaveDialog(mainWindow, {
+  title: 'Save report',
+  defaultPath: 'report.txt'
+});
+```
+
+## Message box
+
+```js
+await dialog.showMessageBox(mainWindow, {
+  title: 'Finished',
+  message: 'The operation completed.'
+});
+```
+
+## Shell
+
+```js
+const { shell } = require('electron');
+
+await shell.openExternal('https://example.com');
+await shell.openPath('/path/to/folder');
+shell.showItemInFolder('/path/to/file.txt');
+```
+
+Validate external URLs before opening them.
+
+## Clipboard
+
+```js
+const { clipboard } = require('electron');
+
+clipboard.writeText('Copied from AtomJS');
+const text = clipboard.readText();
+```

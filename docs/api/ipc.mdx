@@ -1,0 +1,47 @@
+---
+title: IPC and contextBridge
+description: Connect the renderer and main process through a controlled preload API.
+---
+
+## Main-process handlers
+
+```js
+const { ipcMain } = require('electron');
+
+ipcMain.handle('system:info', async () => ({
+  platform: process.platform,
+  arch: process.arch
+}));
+```
+
+Available handler operations include:
+
+```js
+ipcMain.handle(channel, listener);
+ipcMain.handleOnce(channel, listener);
+ipcMain.removeHandler(channel);
+```
+
+## Preload API
+
+```js
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('desktop', {
+  getSystemInfo: () => ipcRenderer.invoke('system:info'),
+  onStatus: (callback) => {
+    const listener = (_event, value) => callback(value);
+    ipcRenderer.on('status', listener);
+  }
+});
+```
+
+## Main-to-renderer events
+
+```js
+mainWindow.webContents.send('status', {
+  ready: true
+});
+```
+
+Keep channel names explicit and validate every input received by `ipcMain`.

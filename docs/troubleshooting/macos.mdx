@@ -1,0 +1,41 @@
+---
+title: macOS Troubleshooting
+description: Diagnose native host compilation, signing, metadata, and DMG failures.
+---
+
+## Native host does not compile
+
+Run:
+
+```bash
+xcode-select --install
+npx atom doctor
+```
+
+Clear the compiled host cache after updating AtomJS:
+
+```bash
+rm -rf "$(node -p "require('path').join(require('os').tmpdir(),'atomjs-native-host')")"
+```
+
+## Signing reports `._Info.plist`
+
+AppleDouble sidecars can appear on external filesystems. Current AtomJS builds the bundle on local temporary storage, removes metadata, signs it, and copies the sealed result to the output.
+
+Do not add `._*`, `.DS_Store`, or `__MACOSX` entries to application bundles.
+
+## DMG creation fails on an external drive
+
+Unset custom temporary-directory variables so the staging directory remains on the local system disk:
+
+```bash
+unset ATOMJS_TEMP_DIR ATOM_TEMP_DIR
+```
+
+Build again after deleting the previous output.
+
+## Verify manually
+
+```bash
+codesign --verify --deep --strict --verbose=2 "build/macos/My App.app"
+```

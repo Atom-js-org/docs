@@ -1,0 +1,24 @@
+---
+title: System WebViews
+description: Learn how AtomJS uses the operating system browser engine instead of bundling Chromium.
+---
+
+AtomJS renders application pages with the WebView supplied by the operating system.
+
+## macOS
+
+WKWebView is hosted by a small Objective-C application compiled with the installed macOS SDK. One native host owns all AtomJS windows and the application Dock identity.
+
+## Windows
+
+WebView2 uses the Microsoft Edge rendering engine installed on the system. AtomJS does not add another Chromium copy to every application package.
+
+## Linux
+
+WebKitGTK provides the native browser surface. Package dependencies differ by distribution and should be declared in the Linux build configuration.
+
+## Practical consequences
+
+System WebViews reduce runtime duplication, but applications must test browser behavior on every supported operating system.
+
+Avoid relying on a single bundled Chromium version. Prefer standards-based HTML, CSS, and browser APIs.

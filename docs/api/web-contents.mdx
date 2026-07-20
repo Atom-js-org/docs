@@ -1,0 +1,66 @@
+---
+title: webContents
+description: Send renderer messages, run JavaScript, reload pages, and observe navigation.
+---
+
+Every `BrowserWindow` has a `webContents` object.
+
+```js
+const window = new BrowserWindow();
+const contents = window.webContents;
+```
+
+## Send events
+
+```js
+contents.send('settings:changed', {
+  theme: 'dark'
+});
+```
+
+Receive the event from preload:
+
+```js
+ipcRenderer.on('settings:changed', (_event, settings) => {
+  console.log(settings);
+});
+```
+
+## Execute JavaScript
+
+```js
+const title = await contents.executeJavaScript('document.title');
+```
+
+Only execute trusted code that is owned by the application.
+
+## Navigation and state
+
+```js
+contents.reload();
+contents.loadURL('https://example.com');
+contents.getURL();
+contents.isDestroyed();
+```
+
+## Development tools
+
+```js
+contents.openDevTools();
+contents.closeDevTools();
+contents.isDevToolsOpened();
+```
+
+## Events
+
+Common navigation events include:
+
+```js
+contents.on('did-start-loading', () => {});
+contents.on('dom-ready', () => {});
+contents.on('did-finish-load', () => {});
+contents.on('did-stop-loading', () => {});
+contents.on('did-fail-load', (_event, code, description, url) => {});
+```
+
+AtomJS reports repeated navigation completion, including OAuth redirects, rather than limiting `did-finish-load` to the initial document.

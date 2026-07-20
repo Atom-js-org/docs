@@ -1,0 +1,37 @@
+---
+title: OAuth and Login Windows
+description: Keep authentication windows attached, modal, visible, and isolated.
+---
+
+Create authentication windows as children of the main window:
+
+```js
+const authWindow = new BrowserWindow({
+  parent: mainWindow,
+  modal: true,
+  width: 540,
+  height: 720,
+  center: true,
+  show: false,
+  title: 'Sign in',
+  webPreferences: {
+    contextIsolation: true,
+    nodeIntegration: false,
+    devTools: false
+  }
+});
+```
+
+Load the provider URL and show the window after navigation begins:
+
+```js
+await authWindow.loadURL(authorizeUrl);
+authWindow.show();
+authWindow.focus();
+```
+
+Observe navigation through `webContents.getURL()` and `did-finish-load`.
+
+Always register the exact redirect URI required by the OAuth client. Do not substitute a random localhost redirect unless the application registration explicitly permits it.
+
+On Windows, AtomJS assigns a native owner and activates owned login windows so they do not remain hidden behind the main application.

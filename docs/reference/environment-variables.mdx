@@ -1,0 +1,43 @@
+---
+title: Environment Variables
+description: Use supported diagnostic and advanced build environment variables.
+---
+
+## Public diagnostics
+
+```text
+ATOM_DEBUG=1
+```
+
+Print CLI stack traces after failures.
+
+## Development runtime
+
+```text
+ATOM_DEV=1
+ATOM_THEME=dark
+```
+
+These values are normally set or consumed by AtomJS development tooling.
+
+## Build staging
+
+```text
+ATOMJS_TEMP_DIR
+ATOM_TEMP_DIR
+```
+
+Override the temporary staging root. On macOS, keep this on a local filesystem when signing bundles or creating DMGs.
+
+## Advanced checks
+
+```text
+ATOM_SKIP_WEBVIEW_CHECK=1
+ATOM_REQUIRE_DMG=1
+```
+
+`ATOM_SKIP_WEBVIEW_CHECK` bypasses selected native adapter validation and should only be used for controlled development scenarios.
+
+`ATOM_REQUIRE_DMG=1` turns an optional DMG creation failure into a required build failure.
+
+Internal `ATOM_*` and `ATOMJS_*` values used between the CLI and native hosts are implementation details and should not be hard-coded by applications.

@@ -1,0 +1,245 @@
+{
+  "$schema": "./docs.schema.json",
+  "site": {
+    "name": "AtomJS",
+    "description": "Official documentation for lightweight Electron-compatible desktop applications powered by system WebViews.",
+    "home": "getting-started",
+    "repository": "https://github.com/Atom-js-org/atom",
+    "npm": {
+      "runtime": "@atom-js-org/runtime",
+      "electron": "@atom-js-org/electron",
+      "cli": "@atom-js-org/cli"
+    }
+  },
+  "navigation": [
+    {
+      "title": "",
+      "pages": [
+        {
+          "title": "Getting Started",
+          "slug": "getting-started",
+          "file": "getting-started.mdx",
+          "description": "Create and run a lightweight desktop application with AtomJS.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "CLI",
+          "slug": "cli",
+          "file": "cli.mdx",
+          "description": "Use the AtomJS command line for development, diagnostics, project creation, and builds.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Electron Compatibility",
+          "slug": "electron-compatibility",
+          "file": "electron-compatibility.mdx",
+          "description": "Use Electron-style imports and APIs while running on AtomJS system WebViews.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Migrate from Electron",
+          "slug": "migrate-from-electron",
+          "file": "migrate-from-electron.mdx",
+          "description": "Move an Electron application to AtomJS with minimal module and project changes.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Core Concepts",
+      "pages": [
+        {
+          "title": "Architecture",
+          "slug": "core-concepts/architecture",
+          "file": "core-concepts/architecture.mdx",
+          "description": "Understand the main process, native host, renderer, preload bridge, and IPC transport.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "System WebViews",
+          "slug": "core-concepts/system-webviews",
+          "file": "core-concepts/system-webviews.mdx",
+          "description": "Learn how AtomJS uses the operating system browser engine instead of bundling Chromium.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Security Model",
+          "slug": "core-concepts/security-model",
+          "file": "core-concepts/security-model.mdx",
+          "description": "Keep privileged Node.js capabilities outside untrusted renderer content.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "API",
+      "pages": [
+        {
+          "title": "app",
+          "slug": "api/app",
+          "file": "api/app.mdx",
+          "description": "Control application readiness, lifecycle, identity, versions, and platform paths.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "BrowserWindow",
+          "slug": "api/browser-window",
+          "file": "api/browser-window.mdx",
+          "description": "Create and control native AtomJS windows with Electron-style options.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "webContents",
+          "slug": "api/web-contents",
+          "file": "api/web-contents.mdx",
+          "description": "Send renderer messages, run JavaScript, reload pages, and observe navigation.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "IPC and contextBridge",
+          "slug": "api/ipc",
+          "file": "api/ipc.mdx",
+          "description": "Connect the renderer and main process through a controlled preload API.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Dialogs, shell, and clipboard",
+          "slug": "api/dialog-shell-clipboard",
+          "file": "api/dialog-shell-clipboard.mdx",
+          "description": "Use common desktop integrations through Electron-compatible APIs.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Configuration",
+      "pages": [
+        {
+          "title": "Configuration Overview",
+          "slug": "configuration/overview",
+          "file": "configuration/overview.mdx",
+          "description": "Configure identity, source files, artifacts, installers, bundles, and Linux packages.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Windows Configuration",
+          "slug": "configuration/windows",
+          "file": "configuration/windows.mdx",
+          "description": "Customize executable metadata and the NSIS installer.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "macOS Configuration",
+          "slug": "configuration/macos",
+          "file": "configuration/macos.mdx",
+          "description": "Customize the application bundle, signing, ZIP, and DMG output.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Linux Configuration",
+          "slug": "configuration/linux",
+          "file": "configuration/linux.mdx",
+          "description": "Create a standalone binary, portable archive, AppDir, AppImage, DEB, and RPM.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Guides",
+      "pages": [
+        {
+          "title": "Preload and Renderer Security",
+          "slug": "guides/preload-security",
+          "file": "guides/preload-security.mdx",
+          "description": "Expose only the desktop capabilities required by the web interface.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Custom Windows",
+          "slug": "guides/custom-windows",
+          "file": "guides/custom-windows.mdx",
+          "description": "Build branded native windows with Electron-style constructor options.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "OAuth and Login Windows",
+          "slug": "guides/oauth-windows",
+          "file": "guides/oauth-windows.mdx",
+          "description": "Keep authentication windows attached, modal, visible, and isolated.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Code Signing",
+          "slug": "guides/code-signing",
+          "file": "guides/code-signing.mdx",
+          "description": "Sign and verify release artifacts on Windows and macOS.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Building",
+      "pages": [
+        {
+          "title": "Local Builds",
+          "slug": "building/local-builds",
+          "file": "building/local-builds.mdx",
+          "description": "Build and test native artifacts on the matching host operating system.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Cross-platform Builds",
+          "slug": "building/cross-platform",
+          "file": "building/cross-platform.mdx",
+          "description": "Use the included GitHub Actions workflow for targets that do not match the local host.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Troubleshooting",
+      "pages": [
+        {
+          "title": "macOS Troubleshooting",
+          "slug": "troubleshooting/macos",
+          "file": "troubleshooting/macos.mdx",
+          "description": "Diagnose native host compilation, signing, metadata, and DMG failures.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Windows Troubleshooting",
+          "slug": "troubleshooting/windows",
+          "file": "troubleshooting/windows.mdx",
+          "description": "Diagnose WebView2, installer, executable, and window activation issues.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Linux Troubleshooting",
+          "slug": "troubleshooting/linux",
+          "file": "troubleshooting/linux.mdx",
+          "description": "Diagnose WebKitGTK and package-tool availability across distributions.",
+          "updated": "July 2026"
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "pages": [
+        {
+          "title": "Project Layout",
+          "slug": "reference/project-layout",
+          "file": "reference/project-layout.mdx",
+          "description": "Organize an AtomJS application for development and packaging.",
+          "updated": "July 2026"
+        },
+        {
+          "title": "Environment Variables",
+          "slug": "reference/environment-variables",
+          "file": "reference/environment-variables.mdx",
+          "description": "Use supported diagnostic and advanced build environment variables.",
+          "updated": "July 2026"
+        }
+      ]
+    }
+  ]
+}

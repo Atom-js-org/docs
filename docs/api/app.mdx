@@ -1,0 +1,61 @@
+---
+title: app
+description: Control application readiness, lifecycle, identity, versions, and platform paths.
+---
+
+Import `app` from the Electron-compatible module:
+
+```js
+const { app } = require('electron');
+```
+
+## Readiness
+
+```js
+await app.whenReady();
+app.isReady();
+```
+
+## Lifecycle
+
+```js
+await app.quit();
+app.exit(0);
+```
+
+Common events include:
+
+```js
+app.on('ready', () => {});
+app.on('before-quit', (event) => {});
+app.on('will-quit', () => {});
+app.on('quit', (_event, exitCode) => {});
+app.on('window-all-closed', () => {});
+```
+
+## Identity
+
+```js
+app.getName();
+app.setName('My Product');
+app.getVersion();
+app.getAppPath();
+```
+
+## Paths
+
+```js
+app.getPath('home');
+app.getPath('appData');
+app.getPath('userData');
+app.getPath('temp');
+app.getPath('desktop');
+app.getPath('documents');
+app.getPath('downloads');
+app.getPath('music');
+app.getPath('pictures');
+app.getPath('videos');
+app.getPath('logs');
+```
+
+Unsupported path names throw an error instead of returning an invented location.

@@ -1,0 +1,34 @@
+---
+title: Cross-platform Builds
+description: Use the included GitHub Actions workflow for targets that do not match the local host.
+---
+
+AtomJS can delegate builds to the repository workflow.
+
+```bash
+atom build all
+```
+
+Force remote execution for one target:
+
+```bash
+atom build windows --remote
+```
+
+Force local execution and fail instead of using CI:
+
+```bash
+atom build macos --local
+```
+
+The default workflow filename is `atom-build.yml`. Override it in configuration:
+
+```json
+{
+  "github": {
+    "workflow": "desktop-release.yml"
+  }
+}
+```
+
+Remote runners should use a matching operating system for each artifact. Keep icons, entitlements, installer images, and all source files committed so the workflow receives the same build inputs as the local project.

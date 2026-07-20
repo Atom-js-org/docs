@@ -1,0 +1,40 @@
+---
+title: Windows Troubleshooting
+description: Diagnose WebView2, installer, executable, and window activation issues.
+---
+
+## WebView2 is missing
+
+Run:
+
+```powershell
+npx atom doctor
+```
+
+Install the Microsoft WebView2 Runtime when the doctor check fails.
+
+## A console window appears
+
+Use an AtomJS release that marks the packaged executable as a Windows GUI subsystem application. Rebuild the executable after updating the CLI.
+
+## NSIS installer is missing
+
+Install NSIS and ensure `makensis.exe` is available in a standard installation path or on `PATH`.
+
+## OAuth window opens behind the app
+
+Create it with `parent` and `modal`:
+
+```js
+const login = new BrowserWindow({
+  parent: mainWindow,
+  modal: true,
+  show: true
+});
+```
+
+AtomJS assigns native ownership and explicitly activates the child window.
+
+## Long path failures
+
+Keep project and temporary paths reasonably short. AtomJS uses a short staging directory, but dependencies can still contain deeply nested paths.

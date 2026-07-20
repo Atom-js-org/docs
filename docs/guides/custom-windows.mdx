@@ -1,0 +1,46 @@
+---
+title: Custom Windows
+description: Build branded native windows with Electron-style constructor options.
+---
+
+AtomJS supports framed, hidden-titlebar, and frameless window designs.
+
+## Hidden titlebar
+
+```js
+const window = new BrowserWindow({
+  frame: true,
+  titleBarStyle: 'hiddenInset',
+  trafficLightPosition: { x: 16, y: 15 },
+  backgroundColor: '#0b0f17'
+});
+```
+
+## Frameless window
+
+```js
+const window = new BrowserWindow({
+  frame: false,
+  backgroundColor: '#0b0f17',
+  resizable: true,
+  minimizable: true,
+  maximizable: true
+});
+```
+
+A frameless interface must provide visible close, minimize, and maximize controls and must preserve keyboard accessibility.
+
+## Appearance options
+
+```js
+new BrowserWindow({
+  transparent: false,
+  opacity: 0.98,
+  alwaysOnTop: false,
+  minWidth: 760,
+  minHeight: 520,
+  backgroundColor: '#10131a'
+});
+```
+
+Prefer constructor options for behavior that must match across platforms. Dynamic mutations depend on the current native host implementation.

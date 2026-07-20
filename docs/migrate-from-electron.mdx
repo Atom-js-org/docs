@@ -1,0 +1,61 @@
+---
+title: Migrate from Electron
+description: Move an Electron application to AtomJS with minimal module and project changes.
+---
+
+AtomJS is designed to preserve the Electron development model.
+
+## Replace the runtime dependency
+
+Remove the Electron runtime and install the AtomJS compatibility package under the same module name:
+
+```bash
+npm remove electron
+npm install electron@npm:@atom-js-org/electron@alpha
+npm install --save-dev @atom-js-org/cli@alpha
+```
+
+Most imports remain unchanged:
+
+```js
+const { app, BrowserWindow, ipcMain } = require('electron');
+```
+
+## Add AtomJS configuration
+
+Create `atom.config.json` and point `main` at the existing Electron main entry.
+
+```json
+{
+  "appId": "com.example.product",
+  "productName": "Example Product",
+  "main": "src/main.cjs",
+  "icon": "assets/icon.png"
+}
+```
+
+## Replace scripts
+
+```json
+{
+  "scripts": {
+    "dev": "atom run dev",
+    "build:windows": "atom build windows",
+    "build:macos": "atom build macos",
+    "build:linux": "atom build linux"
+  }
+}
+```
+
+## Audit Electron-specific assumptions
+
+Check for:
+
+- direct Chromium command-line switches
+- Chrome extension APIs
+- Electron native modules compiled against Electron's ABI
+- BrowserView behavior that depends on Chromium internals
+- unrestricted renderer Node.js access
+- APIs currently represented by compatibility stubs
+
+Keep privileged filesystem and process logic in the main process. Expose a narrow preload bridge to the renderer.

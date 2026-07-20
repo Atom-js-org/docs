@@ -1,0 +1,34 @@
+---
+title: Project Layout
+description: Organize an AtomJS application for development and packaging.
+---
+
+A typical project:
+
+```text
+my-app/
+├── assets/
+│   ├── icon.png
+│   └── icon.ico
+├── src/
+│   ├── main.cjs
+│   ├── preload.cjs
+│   ├── index.html
+│   ├── renderer.js
+│   └── styles.css
+├── atom.config.json
+├── package.json
+└── package-lock.json
+```
+
+## Responsibilities
+
+- `main.cjs`: application lifecycle, windows, filesystem, network, and IPC handlers
+- `preload.cjs`: narrow renderer bridge
+- `index.html`: page structure
+- `renderer.js`: browser-side interaction
+- `styles.css`: interface presentation
+- `atom.config.json`: native identity and platform packaging
+- `package.json`: dependencies and scripts
+
+Keep renderer assets inside paths included by the build configuration.
