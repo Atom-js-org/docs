@@ -1,24 +1,24 @@
 # AtomJS Docs
 
-פרויקט תיעוד סטטי המבוסס על **HTML + CSS + JavaScript**, כאשר מבנה האתר מגיע מ־`docs.json` והתוכן נטען מקובצי `.mdx` שבתיקיית `docs/`.
+A static documentation project built with **HTML + CSS + JavaScript**. The site structure is defined in `docs.json`, while the content is loaded from `.mdx` files located in the `docs/` directory.
 
-## הפעלה
+## Running the Project
 
-נדרש Node.js 18 ומעלה. אין צורך להתקין חבילות:
+Node.js 18 or later is required. No package installation is needed:
 
 ```bash
 npm start
 ```
 
-לאחר מכן פותחים בדפדפן:
+Then open the following URL in your browser:
 
 ```text
 http://localhost:4173
 ```
 
-> פתיחה ישירה של `index.html` דרך `file://` לא תאפשר לדפדפן לטעון את `docs.json` וקובצי ה־MDX. לכן מצורף שרת סטטי קטן ללא תלויות.
+> Opening `index.html` directly through `file://` will prevent the browser from loading `docs.json` and the MDX files. For this reason, the project includes a small dependency-free static server.
 
-## מבנה הפרויקט
+## Project Structure
 
 ```text
 atomjs-docs/
@@ -38,13 +38,13 @@ atomjs-docs/
 └── package.json
 ```
 
-## הוספת עמוד
+## Adding a Page
 
-1. יוצרים קובץ MDX חדש בתוך `docs/`.
-2. מוסיפים אותו ל־`docs.json` עם `title`, `slug`, `file`, `description` ו־`updated`.
-3. הקישור יופיע אוטומטית בסרגל הצד ובחיפוש.
+1. Create a new MDX file inside the `docs/` directory.
+2. Add it to `docs.json` with the `title`, `slug`, `file`, `description`, and `updated` fields.
+3. The link will automatically appear in the sidebar and search results.
 
-דוגמה:
+Example:
 
 ```json
 {
@@ -56,9 +56,9 @@ atomjs-docs/
 }
 ```
 
-## רכיבי MDX נתמכים
+## Supported MDX Components
 
-בנוסף ל־Markdown רגיל, מנוע התצוגה כולל רכיבים קטנים:
+In addition to standard Markdown, the rendering engine includes several small components:
 
 ```mdx
 <Callout type="warning" title="Important">
@@ -66,7 +66,7 @@ Your message goes here.
 </Callout>
 ```
 
-הערכים הנתמכים עבור `type` הם `info`, `warning` ו־`success`.
+The supported values for `type` are `info`, `warning`, and `success`.
 
 ```mdx
 <FeatureGrid>
@@ -75,6 +75,6 @@ Your message goes here.
 </FeatureGrid>
 ```
 
-## ערכת נושא
+## Theme
 
-ברירת המחדל היא `system`. בחירה ידנית ב־Light או Dark נשמרת ב־`localStorage` תחת המפתח `atomjs-theme`.
+The default theme is `system`. A manual selection of Light or Dark mode is saved in `localStorage` under the `atomjs-theme` key.
